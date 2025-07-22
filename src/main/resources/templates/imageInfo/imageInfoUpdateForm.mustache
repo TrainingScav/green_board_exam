@@ -1,0 +1,73 @@
+{{> layout/header}}
+<div class="d-flex justify-content-center align-items-center"
+     style="min-height: 100vh; background: linear-gradient(0deg, #0d6efdba, #dc3545d9);">
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 600px;">
+        <h2 class="fw-bold mb-4 text-center">이미지 수정</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {{#imageInfo}}
+                <div class="mb-3">
+                    <label class="form-label">제목</label>
+                    <input type="text" class="form-control" name="title" value="{{title}}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">설명</label>
+                    <textarea class="form-control" name="content" rows="4" required>{{content}}</textarea>
+                </div>
+
+                <input type="hidden" id="categoryValue" value="{{category}}">
+                <div class="mb-3">
+                    <label class="form-label">카테고리</label>
+                    <select class="form-select" name="category" required>
+                        <option value="">카테고리를 선택하세요</option>
+                        <option value="풍경">풍경</option>
+                        <option value="IT">IT</option>
+                        <option value="동물">동물</option>
+                        <option value="예술">예술</option>
+                        <option value="인물">인물</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">현재 이미지</label>
+                    <input type="hidden" id="changeImageYn" name="changeImageYn" value="N">
+                    <div class="text-center">
+                        <img id="previewImage" src="{{imagePath}}" alt="현재 이미지"
+                             style="max-width: 100%; max-height: 300px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">이미지 변경 (선택사항)</label>
+                    <input class="form-control" type="file" id="imageFile" name="imageFile" accept="image/*">
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 fw-bold py-2">수정하기</button>
+            {{/imageInfo}}
+        </form>
+    </div>
+</div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const category = document.getElementById('categoryValue').value;
+        document.querySelector('select[name="category"]').value = category;
+    });
+
+    document.getElementById('imageFile').addEventListener('change', function(event) {
+        const preview = document.getElementById('previewImage');
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            document.getElementById('changeImageYn').value = "Y";
+        }
+    });
+</script>
+{{> layout/footer}}

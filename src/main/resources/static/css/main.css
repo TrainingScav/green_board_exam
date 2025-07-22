@@ -1,0 +1,62 @@
+.ifu-header {
+    background: linear-gradient(0deg, #0d6efdba, #dc3545d9);
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.ifu-header h1 {
+    font-size: 64px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.ifu-header p {
+    font-size: 22px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.search-bar .form-control {
+    border-radius: 50px 0 0 50px;
+}
+
+.search-bar .btn {
+    border-radius: 0 50px 50px 0;
+}
+
+.category-label {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: left;
+    padding: 10px 20px;
+    display: inline-block;
+    color: #333;
+}
+
+.category-group {
+    margin-bottom: 60px;
+}
+
+.ifu-card {
+    transition: transform 0.2s;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ifu-card:hover {
+    transform: translateY(-5px);
+}
+
+.ifu-card img {
+    object-fit: cover;
+    height: 200px;
+}
+
+.ifu-card .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

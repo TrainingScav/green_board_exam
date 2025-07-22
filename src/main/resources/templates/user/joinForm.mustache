@@ -1,0 +1,83 @@
+{{> layout/header}}
+<div class="signup-container d-flex justify-content-center align-items-center"
+     style="min-height: 100vh; background: linear-gradient(0deg, #0d6efdba, #dc3545d9);">
+    <div class="signup-card bg-white p-4 p-md-5 rounded-4 shadow" style="max-width: 450px; width: 100%;">
+        <h2 class="fw-bold text-center mb-4">회원가입</h2>
+        <form action="/join" method="post" enctype="multipart/form-data">
+
+            <div class="text-center mb-3" style="position: relative; width: 150px; height: 150px; margin: 0 auto;">
+                <!-- 아이콘 -->
+                <div id="iconPreview" class="d-flex justify-content-center align-items-center rounded-circle bg-light shadow position-absolute top-0 start-0 w-100 h-100"
+                     style="font-size: 60px;">
+                    <i class="fas fa-user text-muted"></i>
+                </div>
+
+                <!-- 이미지 -->
+                <img id="imgPreview" src="#" alt="프로필 미리보기"
+                     class="position-absolute top-0 start-0 rounded-circle shadow"
+                     style="width: 150px; height: 150px; object-fit: cover; display: none;">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">프로필 이미지</label>
+                <input class="form-control" type="file" id="profileImage" name="profileImage" accept="image/*">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">이름</label>
+                <input type="text" name="username" class="form-control rounded-3" placeholder="이름 입력" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">생년월일</label>
+                <input type="text" name="userBirthDate" class="form-control rounded-3" placeholder="생년월일입력(-제외)"
+                       required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">아이디</label>
+                <input type="text" name="userLoginId" class="form-control rounded-3" placeholder="아이디 입력" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">이메일 주소</label>
+                <input type="email" name="userEmail" class="form-control rounded-3" placeholder="이메일 입력" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">비밀번호</label>
+                <input type="password" name="userPassword" class="form-control rounded-3" placeholder="비밀번호 입력"
+                       required>
+                <div class="form-text">8자 이상 입력해주세요.</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">비밀번호 확인</label>
+                <input type="password" class="form-control rounded-3" placeholder="비밀번호 재입력" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 fw-semibold">가입하기</button>
+        </form>
+        <div class="text-center mt-3">
+            이미 계정이 있으신가요? <a href="/login-form" class="fw-semibold text-decoration-none">로그인</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('profileImage').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const img = document.getElementById('imgPreview');
+        const icon = document.getElementById('iconPreview');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                img.src = e.target.result;
+                img.style.display = 'block';
+                icon.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            img.src = '#';
+            img.style.display = 'none';
+            icon.style.display = 'flex';
+        }
+    });
+</script>
+{{> layout/footer}}

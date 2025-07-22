@@ -1,0 +1,48 @@
+server:
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    com.hhg.board: DEBUG
+
+file:
+  upload-dir: ${user.home}/uploads/profiles/
+  image-upload-dir: ${user.home}/uploads/images/
+
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
+      location: ${java.io.tmpdir}
+  mustache:
+    servlet:
+      expose-session-attributes: true
+      expose-request-attributes: true
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/greenexam?useSSl=false&serverTimezone=Asia/Seoul
+    username: root
+    password: asd1234
+
+  h2:
+    console:
+      enabled: true
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 10
+    defer-datasource-initialization: true

@@ -1,0 +1,21 @@
+{{> layout/header}}
+<div class="d-flex justify-content-center align-items-center"
+     style="min-height: 100vh; background: linear-gradient(0deg, #0d6efdba, #dc3545d9);">
+
+    <div class="card shadow-lg p-4 text-center" style="max-width: 500px; width: 100%;">
+        {{#userInfo}}
+            <!-- 프로필 이미지 -->
+            <div class="mb-4">
+                <img src="{{profileImagePath}}" alt="프로필 이미지" class="rounded-circle shadow"
+                     style="width: 150px; height: 150px; object-fit: cover;">
+            </div>
+
+            <!-- 사용자 정보 -->
+            <h3 class="fw-bold mb-1">{{username}}</h3>
+            <p class="text-muted mb-3">{{userEmail}}</p>
+
+        {{/userInfo}}
+        <a href="/profile/edit" class="btn btn-primary w-100 fw-bold">정보 수정</a>
+    </div>
+</div>
+{{> layout/footer}}

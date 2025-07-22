@@ -1,0 +1,21 @@
+{{> layout/header}}
+<div class="login-container d-flex justify-content-center align-items-center" style="min-height: 100vh; background: linear-gradient(0deg, #0d6efdba, #dc3545d9);">
+    <div class="login-card bg-white p-4 p-md-5 rounded-4 shadow" style="max-width: 450px; width: 100%;">
+        <h2 class="fw-bold text-center mb-4">로그인</h2>
+        <form action="/login" method="post">
+            <div class="mb-3">
+                <label class="form-label">아이디</label>
+                <input type="text" name="userLoginId" class="form-control rounded-3" placeholder="아이디 또는 이메일 입력" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">비밀번호</label>
+                <input type="password" name="userPassword" class="form-control rounded-3" placeholder="비밀번호 입력" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 fw-semibold">로그인</button>
+        </form>
+        <div class="text-center mt-3">
+            계정이 없으신가요? <a href="/join-form" class="fw-semibold text-decoration-none">회원가입</a>
+        </div>
+    </div>
+</div>
+{{> layout/footer}}

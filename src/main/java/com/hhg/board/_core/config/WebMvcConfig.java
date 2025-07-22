@@ -1,0 +1,68 @@
+package com.hhg.board._core.config;
+
+
+import com.hhg.board._core.interceptor.LoginInterceptor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@RequiredArgsConstructor
+@Configuration // IoC 처리 (싱글톤 패턴 관리)
+public class WebMvcConfig implements WebMvcConfigurer {
+
+    // DI 처리 (생성자 의존 주입)
+    private final LoginInterceptor loginInterceptor;
+
+    // 프로필 이미지 파일 경로
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+
+    // 이미지 정보 관련 파일 경로
+    @Value("${file.image-upload-dir}")
+    private String imageUploadDir;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(loginInterceptor)
+                // REST API 경로 변경
+                .addPathPatterns("/api/**")
+                // 공개 API는 제외 처리
+                .excludePathPatterns(
+                        "/api/boards/{id:\\d+}/detail" // 게시글 상세보기 누구나 응답 허용
+                );
+
+    }
+
+    // cors 정책 설정
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api-test/**")
+                // .allowedOrigins("https://api.kakao.com:8080") 특정 도메인만 등록 가능
+                .allowedOrigins("*")
+                .allowedMethods("GET","POST","PUT","DELETE")
+                .allowedHeaders("*")
+                .allowCredentials(false); // 인증이 필요한 경우 true
+
+        // 필요하다면 중복 등록 가능
+        registry.addMapping("/api/**")
+                .allowedOrigins("*")
+                .allowedMethods("*")
+                .allowedHeaders("*")
+                .allowCredentials(false)
+                .maxAge(3600);
+    }
+
+    // 외부 이미지 경로 설정
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/uploads/profiles/**")
+                .addResourceLocations("file:///" + uploadDir);
+        registry.addResourceHandler("/uploads/images/**")
+                .addResourceLocations("file:///" + imageUploadDir);
+    }
+}
